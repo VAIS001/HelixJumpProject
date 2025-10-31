@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour {
         offset = transform.position.y - target.transform.position.y;
     }
 
-    void Update () {
+    void LateUpdate () {
         // Move camera smoothly to target height (yTargetPos)
         Vector3 curPos = transform.position;
         curPos.y = target.transform.position.y + offset;

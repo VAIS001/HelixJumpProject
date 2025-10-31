@@ -11,6 +11,9 @@ public class Level
 
     [Range(0, 11)]
     public int deathPartCount = 1;
+	
+	[Range(-10f, 10f)]
+    public float rotateSpeed = 0f;
 }
 
 [CreateAssetMenu(fileName = "New Stage")]

@@ -6,6 +6,10 @@ public class BallController : MonoBehaviour {
 
     public Rigidbody rb;
     public float impulseForce = 5f;
+	public AudioClip hitClip;
+	public AudioSource audioSource;
+	public GameObject[] effects;
+	private int activeEffect = 0;
 
     private Vector3 startPos;
     public int perfectPass = 0;
@@ -23,6 +27,7 @@ public class BallController : MonoBehaviour {
     {
         if (ignoreNextCollision)
             return;
+		audioSource.PlayOneShot(hitClip);
         if (isSuperSpeedActive)
         {
             if (!other.transform.GetComponent<Goal>())
@@ -75,6 +80,10 @@ public class BallController : MonoBehaviour {
     public void ResetBall()
     {
         transform.position = startPos;
+		effects[activeEffect].SetActive(false);
+		activeEffect +=1;
+		if(activeEffect == effects.Length)activeEffect = 0;
+		effects[activeEffect].SetActive(true);
     }
 
     private void AllowCollision()

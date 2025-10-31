@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HelixController : MonoBehaviour {
 
+	public AudioSource audioSource;
+	public AudioClip clickClip;
     private Vector3 startRotation;
     private Vector2 lastTapPos;
     private float helixDistance;
@@ -22,6 +24,9 @@ public class HelixController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetMouseButtonDown(0)){
+			audioSource.PlayOneShot(clickClip, 1.0f);
+		}
         // Spin helix by using click (or finger press) and drag
         if (Input.GetMouseButton(0))
         {
@@ -76,6 +81,7 @@ public class HelixController : MonoBehaviour {
             Debug.Log("Spawned Level");
             level.transform.localPosition = new Vector3(0, spawnPosY, 0);
             spawnedLevels.Add(level);
+			level.GetComponent<RotateY>().speed =  6f * stage.levels[i].rotateSpeed;//new Vector3(0,, 0);
 
             // Disable some parts (depending on level setup)
             int partsToDisable = 12 - stage.levels[i].partCount;
@@ -122,8 +128,6 @@ public class HelixController : MonoBehaviour {
                     Debug.Log("Set death part");
                 }
             }
-
-
         }
     }
     }
